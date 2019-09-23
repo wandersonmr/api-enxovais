@@ -1,5 +1,5 @@
 'use strict';
-
+const dataBase = require('../../config/data_base');
 const response = require('../../config/response');
 
 module.exports.getUsuario = async (req, res) =>{
