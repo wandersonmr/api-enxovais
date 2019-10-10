@@ -8,4 +8,8 @@ router.get('/', (req, res) => {
     controller.getUsuario(req, res);
 });
 
+router.post('/', (req, res) => {
+    controller.postUsuario(req, res);
+});
+
 module.exports = router;
