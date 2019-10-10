@@ -1,7 +1,6 @@
 'use strict';
 const dataBase = require('../../config/data_base');
 const response = require('../../config/response');
-const dataBase = require('../../config/data_base');
 const usuarioModel = require('../models/usuario.model');
 
 module.exports.getUsuario = async (req, res) =>{
