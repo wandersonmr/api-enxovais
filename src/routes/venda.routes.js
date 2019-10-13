@@ -2,14 +2,14 @@
 
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/cliente.controller');
+const controller = require('../controllers/venda.controller');
 
 router.get('/', (req, res) => {
-    controller.getClienteByCpf(req, res);
+    controller.getVendaByData(req, res);
 });
 
 router.post('/', (req, res) => {
-    controller.postCliente(req, res);
+    controller.postVenda(req, res);
 });
 
 module.exports = router;

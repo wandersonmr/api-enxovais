@@ -38,3 +38,26 @@ module.exports.postUsuario = async (req, res) => {
         response.montaRetornoAPI({ status: 400, erro }, req, res);
     }
 }
+
+module.exports.postLogin = async (req, res) => {
+
+    let reqBody = req.body;
+
+    try {
+        //conexão com banco
+        let conexaoDB = dataBase.getConnection();
+
+        //post usuario
+        let usuario = await usuarioModel.getLogin({
+            sequelize: conexaoDB,
+            body: reqBody
+        })
+
+        if(!usuario)
+        throw new Error('Usuario e/ou senha incorretos.');
+
+        response.montaRetornoAPI({data: "Sucesso"}, req, res);
+    } catch (erro) {
+        response.montaRetornoAPI({ status: 400, erro }, req, res);
+    }
+}

@@ -1,9 +1,9 @@
 'use strict';
 const dataBase = require('../../config/data_base');
 const response = require('../../config/response');
-const clienteModel = require('../models/cliente.model');
+const vendaModel = require('../models/venda.model');
 
-module.exports.getClienteByCpf = async (req, res) =>{
+module.exports.getVendaByData = async (req, res) =>{
 
     let reqQuery = req.query;
 
@@ -12,12 +12,12 @@ module.exports.getClienteByCpf = async (req, res) =>{
         // Realiza a conexao no banco de URLs.
         let conexaoDB = dataBase.getConnection();
         
-        let cliente = await clienteModel.getClienteByCpf({
+        let listVendas = await vendaModel.getVendaByData({
             sequelize: conexaoDB,
-            cpf: reqQuery.cpf
+            body: reqQuery
         })
 
-        response.montaRetornoAPI({data: cliente}, req, res);
+        response.montaRetornoAPI({data: listVendas}, req, res);
         
     } catch (erro) {
         response.montaRetornoAPI({ status: 400, erro }, req, res);
@@ -26,7 +26,7 @@ module.exports.getClienteByCpf = async (req, res) =>{
 
 }
 
-module.exports.postCliente = async (req, res) => {
+module.exports.postVenda = async (req, res) => {
 
     let reqBody = req.body;
 
@@ -34,8 +34,8 @@ module.exports.postCliente = async (req, res) => {
         //conexão com banco
         let conexaoDB = dataBase.getConnection();
 
-        //post Cliente
-        await clienteModel.insertCliente({
+        //post Venda
+        await vendaModel.insertVenda({
             sequelize: conexaoDB,
             body: reqBody
         })
