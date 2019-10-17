@@ -39,3 +39,34 @@ module.exports.getClienteByCpf = (args) => {
         throw new Error(erro);
     });
 }
+
+module.exports.updateCliente = (args) => {
+
+    return args.sequelize.query(
+        `UPDATE Cliente
+        SET 
+            Nome = :nome,
+            CPF = :cpf,
+            Rua = :rua,
+            Numero = :numero,
+            Bairro = :bairro,
+            Cidade = :cidade,
+            Telefone = :telefone,
+            Celular = :celular
+        WHERE ClienteID = :clienteID`,{
+            replacements: {
+                nome: args.body.nome,
+                cpf: args.body.cpf,
+                rua: args.body.rua,
+                numero: args.body.numero,
+                bairro: args.body.bairro,
+                cidade: args.body.cidade,
+                telefone: args.body.telefone,
+                celular: args.body.celular,
+                clienteID: args.body.clienteID
+            }
+        }
+    ).catch(erro => {
+        throw new Error(erro);
+    });
+}

@@ -4,15 +4,18 @@ const moment = require('moment');
 module.exports.insertVenda = (args) => {
 
     return args.sequelize.query(
-        `INSERT INTO Venda (UsuarioID, Nome, CPF, Rua, Item, valorTotal, valorRestante, DataPagamento, DataVenda)
-        values(:usuarioID, :nome, :cpf, :rua, :item, :valorTotal, :valorRestante, :dataPagamento, :dataVenda)`,{
+        `INSERT INTO Venda (UsuarioID, Nome, CPF, Rua, Numero, Bairro, Item, ValorTotal, ValorRestante, ValorParcela, DataPagamento, DataVenda)
+        values(:usuarioID, :nome, :cpf, :rua, :numero, :bairro, :item, :valorTotal, :valorRestante, :valorParcela, :dataPagamento, :dataVenda)`,{
             replacements:{
                 usuarioID: args.body.usuarioID,
                 nome: args.body.nome,
                 rua: args.body.rua,
+                numero: args.body.numero,
+                bairro: args.body.bairro,
                 item: args.body.item,
                 valorTotal: args.body.valorTotal,
                 valorRestante: args.body.valorRestante,
+                valorParcela: args.body.valorParcela,
                 dataPagamento: args.body.dataPagamento,
                 dataVenda: args.body.dataVenda,
                 cpf: args.body.cpf
@@ -35,6 +38,32 @@ module.exports.getVendaByData = (args) => {
                 dataPagamento: args.body.dataPagamento
             }
             
+        }
+    ).catch(erro => {
+        throw new Error(erro);
+    });
+}
+
+module.exports.updateVenda = (args) => {
+
+    return args.sequelize.query(
+        `UPDATE Venda
+        SET Item = :item,
+            ValorTotal = :valorTotal,
+            ValorRestante = :valorRestante,
+            ValorParcela = :valorParcela,
+            DataVenda = :dataVenda,
+            DataPagamento = :dataPagamento
+        WHERE VendaID = :vendaID`,{
+            replacements:{
+                item: args.body.item,
+                valorTotal: args.body.valorTotal,
+                valorRestante: args.body.valorRestante,
+                valorParcela: args.body.valorParcela,
+                dataVenda: args.body.dataVenda,
+                dataPagamento: args.body.dataPagamento,
+                vendaID: args.body.vendaID
+            }
         }
     ).catch(erro => {
         throw new Error(erro);

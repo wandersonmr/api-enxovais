@@ -46,3 +46,24 @@ module.exports.postVenda = async (req, res) => {
         response.montaRetornoAPI({ status: 400, erro }, req, res);
     }
 }
+
+module.exports.putVenda = async (req, res) => {
+
+    let reqBody = req.body;
+
+    try {
+        //conexão com banco
+        let conexaoDB = dataBase.getConnection();
+
+        //post Venda
+        await vendaModel.updateVenda({
+            sequelize: conexaoDB,
+            body: reqBody
+        })
+
+
+        response.montaRetornoAPI({data: reqBody}, req, res);
+    } catch (erro) {
+        response.montaRetornoAPI({ status: 400, erro }, req, res);
+    }
+}

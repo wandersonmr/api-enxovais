@@ -12,4 +12,8 @@ router.post('/', (req, res) => {
     controller.postVenda(req, res);
 });
 
+router.put('/', (req, res) => {
+    controller.putVenda(req, res);
+});
+
 module.exports = router;
