@@ -69,3 +69,44 @@ module.exports.updateVenda = (args) => {
         throw new Error(erro);
     });
 }
+
+module.exports.getVendaMes = (args) => {
+
+    return args.sequelize.query(
+        `SELECT SUM(ValorTotal) AS 'valorVendaMensal'
+        FROM venda 
+        where DataVenda >= :dataVenda And
+            UsuarioID = :usuarioID`,{
+            type: args.sequelize.QueryTypes.SELECT,
+            replacements:{
+                dataVenda: args.body.dataVenda,
+                usuarioID: args.body.usuarioID
+            },
+            plain: true
+            
+        }
+    ).catch(erro => {
+        throw new Error(erro);
+    });
+}
+
+
+module.exports.getVendaHoje = (args) => {
+
+    return args.sequelize.query(
+        `SELECT SUM(ValorTotal) AS 'valorVendaDiaria'
+        FROM venda 
+        where DataVenda = :dataVenda And
+            UsuarioID = :usuarioID`,{
+            type: args.sequelize.QueryTypes.SELECT,
+            replacements:{
+                dataVenda: args.body.dataVenda,
+                usuarioID: args.body.usuarioID
+            },
+            plain: true
+            
+        }
+    ).catch(erro => {
+        throw new Error(erro);
+    });
+}

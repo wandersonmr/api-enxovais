@@ -67,3 +67,43 @@ module.exports.putVenda = async (req, res) => {
         response.montaRetornoAPI({ status: 400, erro }, req, res);
     }
 }
+
+module.exports.getVendaMes = async (req, res) => {
+    let reqQuery = req.query;
+
+    try {
+
+        // Realiza a conexao no banco de URLs.
+        let conexaoDB = dataBase.getConnection();
+        
+        let listVendas = await vendaModel.getVendaMes({
+            sequelize: conexaoDB,
+            body: reqQuery
+        })
+
+        response.montaRetornoAPI({data: listVendas}, req, res);
+        
+    } catch (erro) {
+        response.montaRetornoAPI({ status: 400, erro }, req, res);
+    }
+}
+
+module.exports.getVendaHoje = async (req, res) => {
+    let reqQuery = req.query;
+
+    try {
+
+        // Realiza a conexao no banco de URLs.
+        let conexaoDB = dataBase.getConnection();
+        
+        let listVendas = await vendaModel.getVendaHoje({
+            sequelize: conexaoDB,
+            body: reqQuery
+        })
+
+        response.montaRetornoAPI({data: listVendas}, req, res);
+        
+    } catch (erro) {
+        response.montaRetornoAPI({ status: 400, erro }, req, res);
+    }
+}

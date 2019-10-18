@@ -8,6 +8,15 @@ router.get('/', (req, res) => {
     controller.getVendaByData(req, res);
 });
 
+router.get('/mes', (req, res) => {
+    controller.getVendaMes(req, res);
+});
+
+router.get('/hoje', (req, res) => {
+    controller.getVendaHoje(req, res);
+});
+
+
 router.post('/', (req, res) => {
     controller.postVenda(req, res);
 });
