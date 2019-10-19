@@ -110,3 +110,15 @@ module.exports.getVendaHoje = (args) => {
         throw new Error(erro);
     });
 }
+
+module.exports.getVendaAll = (args) => {
+
+    return args.sequelize.query(
+        `SELECT * 
+        FROM Cliente `, {
+        type: args.sequelize.QueryTypes.SELECT
+        
+    }).catch(erro => {
+        throw new Error(erro);
+    });
+}

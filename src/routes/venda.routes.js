@@ -8,6 +8,10 @@ router.get('/', (req, res) => {
     controller.getVendaByData(req, res);
 });
 
+router.get('/all', (req, res) => {
+    controller.getVendaAll(req, res);
+});
+
 router.get('/mes', (req, res) => {
     controller.getVendaMes(req, res);
 });
